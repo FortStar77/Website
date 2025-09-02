@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Base meta -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FortStar — Game Development Studio</title>
+  <meta name="description" content="FortStar is a one-person indie game studio creating engaging mobile games. Explore my titles, follow me on TikTok, and visit my Google Play developer page." />
+  <meta name="robots" content="index,follow" />
+  <meta name="theme-color" content="#0b0f17" />
+  <!-- Favicon (inline, no extra file needed) -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230b0f17'/%3E%3Ctext x='50%25' y='54%25' font-family='Arial' font-weight='700' font-size='34' text-anchor='middle' fill='%237df9ff'%3EFS%3C/text%3E%3C/svg%3E" />
+  <link id="canonical" rel="canonical" href="" />
+
+  <!-- Open Graph / Twitter -->
+  <meta property="og:title" content="FortStar — Game Development Studio" />
+  <meta property="og:description" content="Official site of FortStar — a solo indie game developer. Discover my games and follow along." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://via.placeholder.com/1200x630.png?text=FortStar" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <style>
+    /* ========= CSS Variables & Resets ========= */
+    :root {
+      --bg: #0b0f17;
+      --bg-elev: #121826;
+      --text: #e6ebff;
+      --muted: #9aa3b2;
+      --brand: #4da3ff;
+      --brand-2: #7df9ff;
+      --card: #0f1522;
+      --border: #22304a;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 14px;
+      --focus: 0 0 0 3px rgba(77,163,255,.45);
+    }
+    .theme-light {
+      --bg: #f7f9fc;
+      --bg-elev: #ffffff;
+      --text: #0f1625;
+      --muted: #475065;
+      --brand: #145bff;
+      --brand-2: #00bcd4;
+      --card: #ffffff;
+      --border: #e5eaf2;
+      --shadow: 0 10px 28px rgba(17,24,39,.12);
+      --focus: 0 0 0 3px rgba(20,91,255,.25);
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--text);
+      font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      scroll-behavior: smooth;
+    }
+    a { color: var(--brand); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    img { display: block; max-width: 100%; height: auto; }
+    button { font: inherit; }
+
+    /* Visually hidden (for skip link) */
+    .visually-hidden {
+      position: absolute !important;
+      height: 1px; width: 1px;
+      overflow: hidden; clip: rect(1px,1px,1px,1px);
+      white-space: nowrap; border: 0; padding: 0; margin: -1px;
+    }
+    .visually-hidden:focus {
+      position: static !important;
+      height: auto; width: auto;
+      clip: auto; margin: .5rem; padding: .4rem .6rem;
+      background: var(--bg-elev); border:1px solid var(--border); border-radius: 8px;
+      box-shadow: var(--focus);
+    }
+
+    /* ========= Layout ========= */
+    .container { width: min(1200px, 92vw); margin: 0 auto; }
+    header {
+      position: sticky; top: 0; z-index: 40;
+      backdrop-filter: saturate(140%) blur(8px);
+      background: color-mix(in oklab, var(--bg), transparent 30%);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav { display: flex; align-items: center; justify-content: space-between; padding: .8rem 0; }
+    .brand { display: inline-flex; align-items: center; gap: .6rem; font-weight: 800; letter-spacing: .3px; font-size: 1.15rem; }
+    .brand .dot { width: 10px; height: 10px; border-radius: 50%; background: radial-gradient(100% 100% at 30% 30%, var(--brand-2), var(--brand)); box-shadow: 0 0 16px var(--brand-2); }
+    .nav-links { display: flex; align-items: center; gap: 1rem; }
+    .nav-links a { padding: .55rem .8rem; border-radius: 8px; color: var(--text); }
+    .nav-links a:hover, .nav-links a:focus-visible { background: var(--bg-elev); outline: none; box-shadow: var(--focus); }
+    .icon-btn { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 10px; border: 1px solid var(--border); background: var(--bg-elev); box-shadow: var(--shadow); cursor: pointer; }
+    .icon-btn:focus-visible { outline: none; box-shadow: var(--focus); }
+    .nav-actions { display: flex; align-items: center; gap: .6rem; }
+    .hamburger { display: none; }
+
+    @media (max-width: 900px) {
+      .hamburger { display: inline-flex; }
+      .nav-links {
+        display: none; position: absolute; top: 64px; right: 4vw;
+        flex-direction: column; background: var(--bg-elev); padding: .6rem;
+        border:1px solid var(--border); border-radius: 12px;
+      }
+      .nav-links.open { display: flex; }
+    }
+
+    /* ========= Hero with Canvas ========= */
+    #hero {
+      position: relative; min-height: clamp(480px, 60vh, 780px);
+      display: grid; place-items: center; overflow: clip;
+      border-bottom: 1px solid var(--border);
+    }
+    #bg-canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .hero-inner { position: relative; z-index: 2; text-align: center; padding: 5rem 0 4rem; }
+    .badge {
+      display: inline-flex; gap: .5rem; align-items: center;
+      padding: .35rem .6rem; border-radius: 999px; border: 1px solid var(--border);
+      background: color-mix(in oklab, var(--bg-elev), transparent 20%);
+      font-size: .85rem; color: var(--muted);
+    }
+    .hero-title { font-size: clamp(2.2rem, 6vw, 4rem); line-height: 1.05; margin: 1rem auto .6rem; letter-spacing: -.02em; text-wrap: balance; }
+    .hero-sub { color: var(--muted); max-width: 60ch; margin: 0 auto 1.4rem; }
+    .cta-row { display: inline-flex; gap: .8rem; flex-wrap: wrap; justify-content: center; margin-top: 1rem; }
+    .btn {
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, color-mix(in oklab, var(--brand), transparent 75%), transparent);
+      color: var(--text); padding: .8rem 1.05rem; border-radius: 12px;
+      display: inline-flex; align-items: center; gap: .6rem; box-shadow: var(--shadow);
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn.primary {
+      background: linear-gradient(180deg, color-mix(in oklab, var(--brand), transparent 55%), color-mix(in oklab, var(--brand-2), transparent 70%));
+      border-color: color-mix(in oklab, var(--brand), transparent 30%);
+    }
+
+    /* ========= Sections ========= */
+    section { padding: clamp(2.4rem, 5vw, 4rem) 0; }
+    .section-head { display: grid; gap: .5rem; justify-items: center; text-align: center; margin-bottom: 1.2rem; }
+    .section-head p { color: var(--muted); max-width: 62ch; }
+
+    /* Games Grid (two cards, no descriptions) */
+    .grid { display: grid; gap: 1rem; grid-template-columns: repeat(12, 1fr); }
+    .card {
+      grid-column: span 6; min-height: 280px;
+      background: radial-gradient(120% 160% at 0% 0%, color-mix(in oklab, var(--card), transparent 0%), var(--bg) 140%);
+      border: 1px solid var(--border); border-radius: var(--radius); overflow: clip;
+      box-shadow: var(--shadow); display: flex; flex-direction: column;
+    }
+    @media (max-width: 640px) { .card { grid-column: span 12; } }
+    .card-media {
+      aspect-ratio: 16/9; background:
+        linear-gradient(180deg, color-mix(in oklab, var(--brand), transparent 85%), transparent),
+        #141b2a;
+      display: grid; place-items: center; border-bottom: 1px solid var(--border);
+    }
+    .card-media img { width: 100%; height: 100%; object-fit: cover; }
+    .card-body { padding: .9rem; display: grid; gap: .7rem; }
+    .card-title { font-weight: 700; letter-spacing: .2px; }
+    .card-actions { margin-top: auto; display: flex; gap: .5rem; }
+    .sm-btn {
+      font-size: .92rem; padding: .55rem .8rem; border-radius: 10px; border: 1px solid var(--border);
+      background: var(--bg-elev); color: var(--text);
+    }
+    .sm-btn:hover { background: color-mix(in oklab, var(--bg-elev), var(--brand) 12%); }
+
+    /* Feature blocks */
+    .feature {
+      background: color-mix(in oklab, var(--bg-elev), transparent 6%);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: clamp(1rem, 2.5vw, 1.4rem);
+      box-shadow: var(--shadow);
+    }
+    .feature p { color: var(--muted); margin: .4rem 0 0; }
+
+    /* Social / Contact */
+    .social-row { display: flex; flex-wrap: wrap; gap: .8rem; align-items: center; justify-content: center; }
+    .social {
+      display: inline-flex; align-items: center; gap: .6rem;
+      padding: .6rem .85rem; border: 1px solid var(--border); border-radius: 999px;
+      background: var(--bg-elev);
+    }
+    .social svg { width: 22px; height: 22px; }
+    .contact-box {
+      text-align: center; padding: 1.1rem; border: 1px dashed var(--border); border-radius: var(--radius);
+      background: color-mix(in oklab, var(--bg-elev), transparent 12%);
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 1.2rem 0; color: var(--muted); text-align: center;
+      background: color-mix(in oklab, var(--bg), transparent 10%);
+    }
+
+    /* Focus styles */
+    :where(a,button,[tabindex]):focus-visible { outline: none; box-shadow: var(--focus); }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      .btn:hover, .sm-btn:hover { transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <a href="#main" class="visually-hidden">Skip to content</a>
+
+  <!-- ====== Header ====== -->
+  <header>
+    <div class="container nav" role="navigation" aria-label="Primary">
+      <div class="brand" aria-label="FortStar brand">
+        <span class="dot" aria-hidden="true"></span> FortStar
+      </div>
+      <div class="nav-actions">
+        <nav class="nav-links" id="nav-links">
+          <a href="#games">Games</a>
+          <a href="#mission">Mission</a>
+          <a href="#about">About</a>
+          <a href="#follow">Follow</a>
+          <a href="#contact">Contact</a>
+        </nav>
+        <button class="icon-btn" id="themeToggle" aria-label="Toggle theme" title="Toggle theme">
+          <!-- Sun/Moon -->
+          <svg id="themeIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M12 3a1 1 0 0 1 1 1v1.2a1 1 0 1 1-2 0V4a1 1 0 0 1 1-1Zm7.071 3.929a1 1 0 0 1 0 1.414l-.848.849a1 1 0 1 1-1.415-1.415l.849-.848a1 1 0 0 1 1.414 0ZM20 13a1 1 0 1 1 0-2h1.2a1 1 0 1 1 0 2H20ZM5.192 7.191a1 1 0 0 1 1.415 0l.848.849A1 1 0 0 1 6.04 9.455l-.848-.848a1 1 0 0 1 0-1.415ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10ZM3 13a1 1 0 1 1 0-2h1.2a1 1 0 1 1 0 2H3Zm3.929 7.071a1 1 0 0 1 0-1.414l.849-.848a1 1 0 1 1 1.414 1.414l-.848.849a1 1 0 0 1-1.415 0ZM12 18.8a1 1 0 0 1 1 1V21a1 1 0 1 1-2 0v-1.2a1 1 0 0 1 1-1Z" fill="currentColor"/>
+          </svg>
+        </button>
+        <button class="icon-btn hamburger" id="hamburger" aria-controls="nav-links" aria-expanded="false" aria-label="Menu">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 6h16v2H4zM4 11h16v2H4zM4 16h16v2H4z"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ====== Hero with animated Canvas ====== -->
+  <section id="hero" aria-label="FortStar hero">
+    <canvas id="bg-canvas" aria-hidden="true"></canvas>
+    <div class="hero-inner container">
+      <span class="badge" aria-label="Solo game developer badge">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.09 6.26H20l-5.17 3.76L16.18 18 12 14.73 7.82 18l1.35-5.98L4 8.26h5.91L12 2z"/></svg>
+        Solo Game Developer
+      </span>
+      <h1 class="hero-title">FortStar</h1>
+      <p class="hero-sub">I'm a solo indie developer making polished, player-first mobile games. Follow my journey and find my titles on Google Play.</p>
+      <div class="cta-row">
+        <a class="btn primary" href="https://play.google.com/store/apps/developer?id=FortStar&hl=en" target="_blank" rel="noopener noreferrer" aria-label="Open FortStar on Google Play">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 20.5V3.5a1 1 0 0 1 1.53-.85l13 8.5a1 1 0 0 1 0 1.7l-13 8.5A1 1 0 0 1 3 20.5z"/></svg>
+          Google Play
+        </a>
+        <a class="btn" href="https://www.tiktok.com/@fortstar77?_t=ZN-8zOq4MPFJA6&_r=1" target="_blank" rel="noopener noreferrer" aria-label="Open FortStar TikTok">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 3h2c.15.9.64 1.85 1.45 2.77C18.34 7 19.36 7.7 21 7.9V10c-1.98-.11-3.37-.86-4.5-1.88V16a6.5 6.5 0 1 1-6.5-6.5V11a4.5 4.5 0 1 0 4.5 4.5z"/></svg>
+          TikTok
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <main id="main">
+    <!-- ====== Games (two cards, no descriptions) ====== -->
+    <section id="games" class="container" aria-labelledby="games-title">
+      <div class="section-head">
+        <h2 id="games-title">My Games</h2>
+        <p>No descriptions — just clean cards linking to my Google Play pages.</p>
+      </div>
+      <div class="grid" role="list">
+        <!-- Flapster -->
+        <article class="card" role="listitem">
+          <div class="card-media" aria-hidden="true">
+            <img loading="lazy" src="https://via.placeholder.com/1280x720.png?text=Flapster" alt="Flapster cover placeholder">
+          </div>
+          <div class="card-body">
+            <div class="card-title">Flapster</div>
+            <div class="card-actions">
+              <a class="sm-btn" href="https://play.google.com/web/store/apps/details?id=com.flapster&hl=en" target="_blank" rel="noopener noreferrer" aria-label="Open Flapster on Google Play">Open on Google Play</a>
+            </div>
+          </div>
+        </article>
+        <!-- Real Car Parking Simulator -->
+        <article class="card" role="listitem">
+          <div class="card-media" aria-hidden="true">
+            <img loading="lazy" src="https://via.placeholder.com/1280x720.png?text=Real+Car+Parking+Simulator" alt="Real Car Parking Simulator cover placeholder">
+          </div>
+          <div class="card-body">
+            <div class="card-title">Real Car Parking Simulator</div>
+            <div class="card-actions">
+              <a class="sm-btn" href="https://play.google.com/store/apps/details?id=com.FortStar.RealCarParkingSimulator&pcampaignid=web_share" target="_blank" rel="noopener noreferrer" aria-label="Open Real Car Parking Simulator on Google Play">Open on Google Play</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ====== Mission ====== -->
+    <section id="mission" class="container" aria-labelledby="mission-title">
+      <div class="section-head">
+        <h2 id="mission-title">My Mission</h2>
+      </div>
+      <div class="feature">
+        <p>I build tightly-designed, mobile-first games with a sharp focus on feel, clarity, and long-term player satisfaction.</p>
+      </div>
+    </section>
+
+    <!-- ====== About ====== -->
+    <section id="about" class="container" aria-labelledby="about-title">
+      <div class="section-head">
+        <h2 id="about-title">About FortStar</h2>
+      </div>
+      <div class="feature">
+        <p>FortStar is a one-person studio. I iterate fast, test early, and ship only when the experience feels right.</p>
+      </div>
+    </section>
+
+    <!-- ====== Follow ====== -->
+    <section id="follow" class="container" aria-labelledby="follow-title">
+      <div class="section-head">
+        <h2 id="follow-title">Follow Me</h2>
+        <p>Devlogs, reveals, and behind-the-scenes.</p>
+      </div>
+      <div class="social-row">
+        <a class="social" href="https://www.tiktok.com/@fortstar77?_t=ZN-8zOq4MPFJA6&_r=1" target="_blank" rel="noopener noreferrer" aria-label="FortStar on TikTok">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 3h2c.15.9.64 1.85 1.45 2.77C18.34 7 19.36 7.7 21 7.9V10c-1.98-.11-3.37-.86-4.5-1.88V16a6.5 6.5 0 1 1-6.5-6.5V11a4.5 4.5 0 1 0 4.5 4.5z"/></svg>
+          @fortstar77
+        </a>
+        <a class="social" href="https://play.google.com/store/apps/developer?id=FortStar&hl=en" target="_blank" rel="noopener noreferrer" aria-label="FortStar on Google Play">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 20.5V3.5a1 1 0 0 1 1.53-.85l13 8.5a1 1 0 0 1 0 1.7l-13 8.5A1 1 0 0 1 3 20.5z"/></svg>
+          Developer Page
+        </a>
+      </div>
+    </section>
+
+    <!-- ====== Contact ====== -->
+    <section id="contact" class="container" aria-labelledby="contact-title">
+      <div class="section-head">
+        <h2 id="contact-title">Contact</h2>
+      </div>
+      <div class="contact-box">
+        <p>Business inquiries & support:</p>
+        <p><a href="mailto:gracjanbienkowski1981@gmail.com">gracjanbienkowski1981@gmail.com</a></p>
+      </div>
+    </section>
+  </main>
+
+  <!-- ====== Footer ====== -->
+  <footer>
+    <div class="container">
+      <div>© <span id="year"></span> FortStar. All rights reserved.</div>
+      <div style="margin-top:.3rem">
+        <a href="#games">Games</a> · <a href="#mission">Mission</a> · <a href="#about">About</a> · <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ====== JSON-LD (Organization; solo studio) ====== -->
+  <script>
+    (function injectLD(){
+      const data = {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "FortStar",
+        "description": "A one-person indie game studio.",
+        "url": location.origin + location.pathname,
+        "sameAs": [
+          "https://play.google.com/store/apps/developer?id=FortStar&hl=en",
+          "https://www.tiktok.com/@fortstar77?_t=ZN-8zOq4MPFJA6&_r=1"
+        ],
+        "email": "mailto:gracjanbienkowski1981@gmail.com"
+      };
+      const s = document.createElement('script');
+      s.type = 'application/ld+json';
+      s.textContent = JSON.stringify(data);
+      document.head.appendChild(s);
+    })();
+  </script>
+
+  <!-- ====== Interactivity (theme, nav, canvas, canonical) ====== -->
+  <script>
+    // Canonical to clean URL (no params/hash)
+    (function setCanonical(){
+      const clean = location.origin + location.pathname;
+      const link = document.getElementById('canonical');
+      if (link) link.href = clean;
+      let og = document.querySelector('meta[property="og:url"]');
+      if (!og) {
+        og = document.createElement('meta');
+        og.setAttribute('property','og:url');
+        document.head.appendChild(og);
+      }
+      og.setAttribute('content', clean);
+    })();
+
+    // Footer year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Theme toggle with localStorage
+    const root = document.documentElement;
+    const themeToggle = document.getElementById('themeToggle');
+    const THEME_KEY = 'fortstar_theme';
+    function setTheme(mode){
+      if(mode === 'light'){ root.classList.add('theme-light'); }
+      else { root.classList.remove('theme-light'); }
+      localStorage.setItem(THEME_KEY, mode);
+    }
+    setTheme(localStorage.getItem(THEME_KEY) || (matchMedia('(prefers-color-scheme: light)').matches ? 'light':'dark'));
+    themeToggle.addEventListener('click', () => {
+      const isLight = root.classList.contains('theme-light');
+      setTheme(isLight ? 'dark' : 'light');
+    });
+
+    // Mobile nav
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('nav-links');
+    hamburger.addEventListener('click', () => {
+      const open = navLinks.classList.toggle('open');
+      hamburger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', ()=> {
+      navLinks.classList.remove('open'); hamburger.setAttribute('aria-expanded','false');
+    }));
+
+    // Canvas starfield (respects reduced motion)
+    (function starfield(){
+      const canvas = document.getElementById('bg-canvas');
+      const ctx = canvas.getContext('2d');
+      let w, h, dpr, stars = [], rafId, running = true;
+
+      const rm = window.matchMedia('(prefers-reduced-motion: reduce)');
+      function resize(){
+        dpr = Math.min(window.devicePixelRatio || 1, 2);
+        w = canvas.clientWidth; h = canvas.clientHeight;
+        canvas.width = Math.floor(w * dpr);
+        canvas.height = Math.floor(h * dpr);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        spawn();
+      }
+      function spawn(){
+        const count = Math.floor((w*h) / 12000); // density
+        stars = new Array(count).fill().map(()=> ({
+          x: Math.random()*w,
+          y: Math.random()*h,
+          z: Math.random()*1 + .2,
+          vx: (Math.random()-.5)*.15,
+          vy: (Math.random()-.5)*.15,
+          r: Math.random()*1.4 + .3
+        }));
+      }
+      function step(){
+        if(!running) return;
+        ctx.clearRect(0,0,w,h);
+        const g = ctx.createLinearGradient(0,0,w,h);
+        g.addColorStop(0,'rgba(77,163,255,0.06)');
+        g.addColorStop(1,'rgba(125,249,255,0.03)');
+        ctx.fillStyle = g;
+        ctx.fillRect(0,0,w,h);
+
+        for(const s of stars){
+          s.x += s.vx * s.z;
+          s.y += s.vy * s.z;
+
+          if (s.x < -10) s.x = w+10;
+          if (s.x > w+10) s.x = -10;
+          if (s.y < -10) s.y = h+10;
+          if (s.y > h+10) s.y = -10;
+
+          ctx.beginPath();
+          ctx.arc(s.x, s.y, s.r*s.z, 0, Math.PI*2);
+          ctx.fillStyle = 'rgba(255,255,255,' + (0.35 + s.z*0.45) + ')';
+          ctx.fill();
+
+          if (Math.random() < 0.003) s.r = Math.min(2.2, s.r + 0.25);
+          else s.r = Math.max(0.3, s.r - 0.02);
+        }
+        rafId = requestAnimationFrame(step);
+      }
+      function pause(){ running = false; cancelAnimationFrame(rafId); }
+      function play(){ if(running) return; running = true; step(); }
+
+      window.addEventListener('resize', resize);
+      resize();
+      if (rm.matches) { running = false; } else { step(); }
+      rm.addEventListener('change', e => { if(e.matches) pause(); else play(); });
+      document.addEventListener('visibilitychange', ()=> document.hidden ? pause() : play());
+    })();
+  </script>
+</body>
+</html>
