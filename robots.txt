@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://fortstar77.github.io/Website/sitemap.xml
