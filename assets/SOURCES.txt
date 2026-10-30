@@ -1,0 +1,40 @@
+FORTSTAR — ASSET SOURCES
+Prepared: 2026-10-30
+
+Game covers and screenshots: public store listings of FortStar games.
+Images have been locally optimized to WebP for the website.
+The social sharing card combines FortStar text with the Turbo Zone cover.
+
+Turbo Zone: Car Royale
+https://store.steampowered.com/app/5002750/Turbo_Zone_Car_Royale/
+https://store.steampowered.com/api/appdetails?appids=5002750&l=english
+
+Real Car Parking Simulator
+https://store.steampowered.com/app/4066650/Real_Car_Parking_Simulator/
+https://play.google.com/store/apps/details?id=com.FortStar.RealCarParkingSimulator
+
+Rolling Ball Rush
+https://play.google.com/store/apps/details?id=com.FortStar.RollingBallRush
+https://apps.apple.com/us/app/rolling-ball-rush-2d/id6803961117
+
+House Escape: Dark Horror Game
+https://play.google.com/store/apps/details?id=com.FortStar.House.Escape.Dark.Horror.Game
+
+Flapster (cached Google Play listing, retaining the original package ID)
+https://play.google.com/store/apps/details?id=com.flapster
+Official icon:
+https://lh3.googleusercontent.com/Vy5fTIudfpVaP4jdmzphtpt1g_nv1Vq9p4Fe8s7oUC4E9T0VMuQlyuJ0QnzP0G2rIZM=w512
+Official screenshot:
+https://lh3.googleusercontent.com/ELkN24fTCN0x7s_IeuDNUIkd-ztaYgDbUFwe59jvW9d5176vrY_aUcyc0x8wbnUYO743=w1052-h592
+
+FONT FILES — SIL Open Font License 1.1
+Barlow Condensed ExtraBold — Jeremy Tribby
+https://github.com/google/fonts/tree/main/ofl/barlowcondensed
+License: fonts/BARLOW-OFL.txt
+
+Space Grotesk — Florian Karsten
+https://github.com/google/fonts/tree/main/ofl/spacegrotesk
+License: fonts/SPACE-GROTESK-OFL.txt
+
+Brand mark and favicon: SVG vector artwork created for this website.
+Store names and symbols identify their respective platforms.
